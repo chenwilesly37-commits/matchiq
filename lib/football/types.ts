@@ -14,8 +14,11 @@ export type Fixture = {
   awayExpectedGoals: number;
 };
 
-export type GoalProbabilities = {
-  home: number[];
-  away: number[];
-};
 
+export type GoalProbabilities = {
+  over15: number;
+  over25: number;
+  over35: number;
+  under25: number;
+  under35: number;
+};
