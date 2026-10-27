@@ -1,4 +1,4 @@
-import type { Fixture } from "@/lib/football/types";
+import type { Fixture } from "./lib/football/types";
 
 export type MarketPick = { label: string; probability: number; side: string };
 export type MarketGroup = { id: string; title: string; note: string; picks: MarketPick[] };
