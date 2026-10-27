@@ -15,10 +15,12 @@ export type Fixture = {
 };
 
 
+
 export type GoalProbabilities = {
   over15: number;
   over25: number;
   over35: number;
   under25: number;
   under35: number;
+  expectedTotalGoals: number;
 };
