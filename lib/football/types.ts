@@ -1,3 +1,4 @@
+
 export type Fixture = {
   id?: number | string;
   home: string;
@@ -7,4 +8,9 @@ export type Fixture = {
   status_text?: string;
   home_score?: number | null;
   away_score?: number | null;
+
+  // Expected goals used by the prediction model
+  homeExpectedGoals: number;
+  awayExpectedGoals: number;
 };
+
