@@ -1,4 +1,4 @@
-import type { GoalProbabilities } from "@/lib/football/types";
+import type { GoalProbabilities } from "./lib/football/types";
 
 /** P(X=k) for X~Poisson(lambda). */
 function poissonProbability(lambda: number, k: number): number {
