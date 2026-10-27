@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MatchIQ — Sports Analysis</title>
+<meta name="description" content="MatchIQ sports analysis dashboard with illustrative sample markets and probability estimates.">
+<style>
+:root{color-scheme:dark;--bg:#080d18;--panel:#111a2b;--panel2:#172238;--line:#27354d;--muted:#9eacc2;--text:#f4f7fc;--accent:#65e0b2;--blue:#82aaff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#152440 0,#080d18 58%);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
+.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0 24px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:24px;letter-spacing:-.7px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#65e0b2,#82aaff);display:grid;place-items:center;color:#08111d;font-weight:900}.pill{border:1px solid #2a4960;color:var(--accent);padding:6px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.hero{padding:26px 0 22px}.eyebrow{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:1.6px;font-weight:800}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-1.4px;margin:9px 0 12px;max-width:720px}.hero p{color:var(--muted);max-width:650px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.stat,.card{background:linear-gradient(160deg,#141f33,#0f1727);border:1px solid var(--line);border-radius:16px;padding:16px}.stat b{display:block;font-size:21px}.stat span{font-size:12px;color:var(--muted)}
+h2{font-size:19px;margin:26px 0 12px}.sports{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.sport{background:var(--panel);border:1px solid var(--line);border-radius:13px;color:var(--text);padding:13px 8px;font-weight:750;cursor:pointer}.sport.active{border-color:var(--accent);background:#183329;color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.toolbar input,.toolbar select{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px;color:var(--text);min-width:150px;flex:1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.match-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.league{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.sample{font-size:10px;color:#ffcf78;border:1px solid #725b32;border-radius:99px;padding:3px 7px;white-space:nowrap}.teams{font-size:17px;font-weight:800;margin:16px 0 4px}.time{color:var(--muted);font-size:12px}.markets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}.market{background:var(--panel2);border-radius:10px;padding:9px;text-align:center}.market span{display:block;font-size:11px;color:var(--muted)}.market b{font-size:15px;color:var(--accent)}.note{margin:18px 0;background:#211b12;border:1px solid #58472b;color:#f5d8a1;border-radius:12px;padding:12px;font-size:12px}.empty{color:var(--muted);padding:24px;text-align:center}.footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:32px;padding:20px 0 30px}.footer a{color:var(--blue)}
+@media(max-width:650px){.wrap{padding:15px}.stats{grid-template-columns:1fr}.sports{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.hero{padding-top:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand"><div class="logo">IQ</div>MatchIQ</div><span class="pill">SPORTS ANALYSIS · DEMO</span></header>
+<section class="hero"><div class="eyebrow">Think clearly. Read the game.</div><h1>Sports insights, all in one place.</h1><p>Explore match-market examples across multiple sports. This starter site uses illustrative sample data, not live fixtures, odds, or guaranteed predictions.</p></section>
+<div class="stats"><div class="stat"><b>4 sports</b><span>Football · Basketball · Tennis · Ice hockey</span></div><div class="stat"><b>Market explorer</b><span>Browse common market types</span></div><div class="stat"><b>Demo mode</b><span>Live data connection not enabled</span></div></div>
+<h2>Choose a sport</h2>
+<div class="sports" id="sports">
+<button class="sport active" data-sport="Football">⚽ Football</button><button class="sport" data-sport="Basketball">🏀 Basketball</button><button class="sport" data-sport="Tennis">🎾 Tennis</button><button class="sport" data-sport="Ice Hockey">🏒 Ice hockey</button>
+</div>
+<div class="toolbar"><input id="search" placeholder="Search teams or markets…" aria-label="Search teams or markets"><select id="market" aria-label="Filter by market"><option value="all">All markets</option></select></div>
+<h2 id="sectionTitle">Football examples</h2><div class="grid" id="matches"></div>
+<div class="note"><strong>Important:</strong> All match names, probabilities and market values shown here are illustrative demo content. They are not live bookmaker data or reliable betting advice. No outcome is certain.</div>
+<footer class="footer">© <span id="year"></span> MatchIQ · Demo version · <a href="https://github.com/chenwilesly37-commits/matchiq">Project repository</a></footer>
+</div>
+<script>
+const data={
+"Football":[
+{league:"Sample League",teams:"North City vs River United",time:"Demo fixture · not live",markets:[["Home win","46%"],["Over 2.5 goals","54%"],["Both teams score","51%"]]},
+{league:"Sample Cup",teams:"Blue Athletic vs Kings FC",time:"Demo fixture · not live",markets:[["Draw","27%"],["Under 3.5 goals","63%"],["Away win","31%"]]},
+{league:"Market explorer",teams:"Football market types",time:"Common markets",markets:[["1X2","Home / Draw / Away"],["Corners","Over / Under"],["Cards","Over / Under"]]}
+],
+"Basketball":[
+{league:"Sample Basketball",teams:"Metro Hoops vs Coast Flyers",time:"Demo fixture · not live",markets:[["Home win","55%"],["Total points","Over / Under"],["Handicap","Explore"]]},
+{league:"Market explorer",teams:"Basketball market types",time:"Common markets",markets:[["Quarter winner","Explore"],["Player points","Explore"],["Rebounds","Explore"]]}
+],
+"Tennis":[
+{league:"Sample Tennis",teams:"Player A vs Player B",time:"Demo match · not live",markets:[["Player A win","52%"],["Total games","Over / Under"],["Set betting","Explore"]]},
+{league:"Market explorer",teams:"Tennis market types",time:"Common markets",markets:[["Set winner","Explore"],["Games handicap","Explore"],["Tie-break","Explore"]]}
+],
+"Ice Hockey":[
+{league:"Sample Ice Hockey",teams:"North Wolves vs Ice Harbor",time:"Demo fixture · not live",markets:[["Home win","44%"],["Total goals","Over / Under"],["Both teams score","Explore"]]},
+{league:"Market explorer",teams:"Ice hockey market types",time:"Common markets",markets:[["3-way result","Explore"],["Puck line","Explore"],["Period winner","Explore"]]}
+]};
+let sport="Football";
+function render(){const query=document.getElementById("search").value.toLowerCase();const chosen=document.getElementById("market").value;const all=data[sport].filter(x=>(x.teams+" "+x.league+" "+x.markets.flat().join(" ")).toLowerCase().includes(query)).filter(x=>chosen==="all"||x.markets.some(m=>m[0]===chosen));document.getElementById("sectionTitle").textContent=sport+" examples";document.getElementById("matches").innerHTML=all.length?all.map(x=>`<article class="card"><div class="match-head"><span class="league">${x.league}</span><span class="sample">SAMPLE DATA</span></div><div class="teams">${x.teams}</div><div class="time">${x.time}</div><div class="markets">${x.markets.map(m=>`<div class="market"><span>${m[0]}</span><b>${m[1]}</b></div>`).join("")}</div></article>`).join(""):'<div class="empty">No examples match your search.</div>';const sel=document.getElementById("market");const old=sel.value;sel.innerHTML='<option value="all">All markets</option>'+[...new Set(data[sport].flatMap(x=>x.markets.map(m=>m[0])))].map(m=>`<option>${m}</option>`).join("");sel.value=[...sel.options].some(o=>o.value===old)?old:"all";}
+document.querySelectorAll(".sport").forEach(b=>b.addEventListener("click",()=>{sport=b.dataset.sport;document.querySelectorAll(".sport").forEach(x=>x.classList.toggle("active",x===b));render()}));
+document.getElementById("search").addEventListener("input",render);document.getElementById("market").addEventListener("change",()=>{const old=document.getElementById("market").value;render();document.getElementById("market").value=old;});
+document.getElementById("year").textContent=new Date().getFullYear();render();
+</script>
+</body></html>
